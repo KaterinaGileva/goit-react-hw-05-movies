@@ -15,8 +15,8 @@ export const MovieDetails = () => {
   //const { movieId } = useParams();
   //const [movie, setMovie] = useState(null);
 
- // useEffect(() => {
- //   getMovieById(movieId).then(setMovie);
+  //useEffect(() => {
+  //  getMovieById(movieId).then(setMovie);
  //}, [movieId]);
 
   return (

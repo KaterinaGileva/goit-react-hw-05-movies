@@ -1,6 +1,5 @@
 import { getMovies } from "API";
 import { MovieList } from "components/MovieList/MovieList";
-//import { MovieList } from "components/MovieList/MovieList";
 import { SearchBox } from "components/SearchBox/SearchBox";
 import { useMemo } from "react";
 import { useEffect, useState } from "react";

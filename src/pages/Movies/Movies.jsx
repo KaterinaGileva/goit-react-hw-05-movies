@@ -1,60 +1,44 @@
-//import PropTypes from 'prop-types';
-import { useState } from 'react';
-//import { MovieDetails } from './MovieDetails/MovieDetails';
-//import { ImSearch } from 'react-icons/im';
-//import { toast } from 'react-toastify';
-import css from './Movies.module.css'
-
-const styles = { form: { marginBottom: 20 } };
-
-export function Movies ({ onSubmit })  {
-  
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const onChangeInput = event => {
-    setSearchQuery(event.currentTarget.value.toLowerCase());
-  };
-
-  const onSubmitForm = event => {
-    event.preventDefault();
-
-    if (searchQuery.trim() === '') {
-    alert('Enter a search term.');
-      return;
-    }
-    onSubmit(searchQuery);
-    setSearchQuery('');
-  };
-
-    return (
-      <header className={css.header}>
-      <form className={css.form} onSubmit={onSubmitForm} style={styles.form}>
-        <button type="submit"
-                className={css.button}>
-
-          search
-
-        </button>
-        
-         <input
-            className={css.input}
-            type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-            value={searchQuery}
-            onChange={onChangeInput}
-          />
-      </form>
+import { getMovies } from "API";
+import { MovieList } from "components/MovieList/MovieList";
+//import { MovieList } from "components/MovieList/MovieList";
+import { SearchBox } from "components/SearchBox/SearchBox";
+import { useMemo } from "react";
+import { useEffect, useState } from "react";
+import {  useSearchParams } from "react-router-dom";
+//import { useLocation } from "react-router-dom";
 
 
+const Movies = () => {
+  //const movies = getMovies();
+  //const location = useLocation();
+  const [movies, setMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const movieName = searchParams.get("filter") ?? "";
 
-      </header>
-    );
-  }
+useEffect(() => {
+  getMovies().then(setMovies);
+}, []);
+console.log('movies', movies);
 
+const visibleMovies = useMemo(() => {
+    return movies.filter(movie =>
+    movie.name.toLowerCase().includes(movieName.toLowerCase())
+  );
+  }, [movies, movieName]);
 
-  //Movies.propTypes = {
- //   onSubmit: PropTypes.func.isRequired
- // };
+  const updateQueryString = (value) => {
+    const nextParams = value !== "" ? { filter: value  } : {};
+   setSearchParams(nextParams);
+ };
 
+  return (
+    <main>
+      <SearchBox value={movieName} onChange={updateQueryString} />
+      {visibleMovies.length > 0 && ( 
+      <MovieList movies={visibleMovies} />
+      )}
+    </main>
+  );
+};
+
+export default Movies;

@@ -1,17 +1,28 @@
-import { getMovies } from 'API';
-import { MovieList } from 'components/MovieList/MovieList';
-//import PropTypes from 'prop-types';
-//import css from './Home.module.css';
-//import { MovieList } from "../components/MovieList";
-//import { getFilms } from "../API.js";
+//import { getMovies } from "API";
+//import { MovieList } from "components/MovieList/MovieList";
+//import { useEffect, useState } from "react";
 
 
-export const Home = () => {
-  const movies = getMovies();
+const Home = () => {
+  //const movies = getMovies();
+  //const location = useLocation();
+ // const [movies, setMovies] = useState([]);
+
+  
+
+//useEffect(() => {
+//  getMovies().then(setMovies);
+//}, []);
+//console.log('movies', movies);
+
+
+
   return (
     <main>
       <h1>Tranding today</h1>
-      <MovieList movies={movies} />
+      
+      
+  
     </main>
   );
 };
@@ -26,5 +37,5 @@ export const Home = () => {
   //  })
  // ),
 //};
-
+export default Home;
 

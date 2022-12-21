@@ -1,4 +1,4 @@
-export const Cast = () => {
+const Cast = () => {
     return (
       <div>
         <img src="https://via.placeholder.com/960x240" alt="" />
@@ -8,3 +8,4 @@ export const Cast = () => {
     );
   };
   
+  export default Cast;

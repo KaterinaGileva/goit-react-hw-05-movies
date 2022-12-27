@@ -1,31 +1,35 @@
-import css from "./SearchBox.module.css"
+
+import css from "./SearchBox.module.css";
+
 
 //const styles = { form: { marginBottom: 20 } };
 
-export const SearchBox = ({ value, onChange }) => {
+export const SearchBox = ({ onSearch }) => {
+
+  const handleSubmit = evt =>{
+    
+      evt.preventDefault();
+
+      if (search.trim() === '') {
+        alert('Введите корректное имя');
+        return;
+      }
+
+      onSearch(evt.currentTarget.elements.query.value);
+      evt.currentTarget.reset()
+    }
+
     return (
-<header className={css.header}>
-      
+      <form onSubmit={handleSubmit}>
         <button type="submit"
-                className={css.button}>
-
-          search
-
+                className={css.button}> Search
         </button>
-        
-         <input
+        <input
             className={css.input}
             type="text"
-            autoComplete="off"
-            autoFocus
-            placeholder="Search images and photos"
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
+            name='query'
           />
-      
-      </header>
-
-      
+      </form> 
     );
   };
   

@@ -1,7 +1,7 @@
 import { HiArrowLeft } from "react-icons/hi";
 
 
-export const BackLink = ({ to, children }) => {
+export const BackLink = ({ children }) => {
   return (
     <>
       <HiArrowLeft size="24" />

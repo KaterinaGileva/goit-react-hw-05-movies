@@ -1,41 +1,35 @@
-import { getMovies } from "API";
-import { MovieList } from "components/MovieList/MovieList";
+import { getMovies } from "service/API";
+import MoviesPopular from "components/MoviesPopular/MoviesPopular";
 import { SearchBox } from "components/SearchBox/SearchBox";
-import { useMemo } from "react";
 import { useEffect, useState } from "react";
-import {  useSearchParams } from "react-router-dom";
-//import { useLocation } from "react-router-dom";
-
+import { useSearchParams } from "react-router-dom";
 
 const Movies = () => {
-  //const movies = getMovies();
-  //const location = useLocation();
+ 
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const movieName = searchParams.get("filter") ?? "";
-
+  const query = searchParams.get('query') ?? "";
+ 
 useEffect(() => {
+  if (!query) return;
   getMovies().then(setMovies);
 }, []);
-console.log('movies', movies);
 
-const visibleMovies = useMemo(() => {
-    return movies.filter(movie =>
-    movie.name.toLowerCase().includes(movieName.toLowerCase())
-  );
-  }, [movies, movieName]);
+if (!movies) {
+  return null;
+}
 
-  const updateQueryString = (value) => {
-    const nextParams = value !== "" ? { filter: value  } : {};
+  const handleSearch = (name) => {
+    const nextParams = name !== "" ? { query: name  } : {};
    setSearchParams(nextParams);
  };
 
   return (
     <main>
-      <SearchBox value={movieName} onChange={updateQueryString} />
-      {visibleMovies.length > 0 && ( 
-      <MovieList movies={visibleMovies} />
-      )}
+      <SearchBox  onSearch={handleSearch} />
+      
+      {movies.results && <MoviesPopular items={movies.results} />}
+      
     </main>
   );
 };

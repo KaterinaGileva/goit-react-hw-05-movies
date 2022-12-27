@@ -1,24 +1,25 @@
 //import { getMovies } from "API";
-//import { MovieList } from "components/MovieList/MovieList";
-//import { useEffect, useState } from "react";
+
+import MoviesPopular from "components/MoviesPopular/MoviesPopular";
+import { useEffect, useState } from "react";
 
 
 const Home = () => {
-  //const movies = getMovies();
-  //const location = useLocation();
- // const [movies, setMovies] = useState([]);
+  
+  const [moviesPopular, setMoviesPopular] = useState([]);
 
   
 
-//useEffect(() => {
-//  getMovies().then(setMovies);
-//}, []);
+useEffect(() => {
+  getMovies().then(setMoviesPopular);
+}, []);
 //console.log('movies', movies);
 
 
 
   return (
     <main>
+      {moviesPopular && <MoviesPopular items={moviesPopular.results} />}
       <h1>Tranding today</h1>
       
       

@@ -3,9 +3,9 @@ import { getMovieById } from 'service/API';
 import { Suspense } from "react";
 import { useState, useEffect } from 'react';
 //import css from './MovieDetails.module.css';
-//import PropTypes from 'prop-types';
 import { Link, Outlet} from "react-router-dom";
-//import { BackLink } from "components/BackLink/BackLink";
+import Notiflix from "notiflix";
+import { BackLink } from "components/BackLink/BackLink";
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -13,25 +13,32 @@ const MovieDetails = () => {
   const location = useLocation();
  
 useEffect(() => {
-  getMovieById(Number(movieId)).then(setMovie);
+  getMovieById(Number(movieId))
+  .then(({ data }) => setMovie(data))
+  .catch(error =>
+    Notiflix.Notify.warning(
+      'Sorry, something went wrong.... Please try again.'
+    )
+  );
 }, [movieId]);
 
 if (!movie) {
   return null;
 }
-
-сonst { backdrop_path, original_title, popularity, overview, genres } = movie;
-
 const backLinkHref = location?.state?.from ?? "/movies";
+const { poster_path, title, genres, vote_average, overview } = movie;
 
   return (
     <main>
-      <Link to={backLinkHref}>Go Back</Link>
+      <BackLink to={backLinkHref}>Go back</BackLink>
       <div>
-      {<img src={`https://image.tmdb.org/t/p/original/${backdrop_path}`} alt="" />}
+      {<img 
+           src={`https://image.tmdb.org/t/p/original/${poster_path}`} 
+           alt="{title}" 
+           width={'300px'} />}
 
-        <h1> {original_title}</h1>
-        <p>User Score: {popularity}%</p>
+        <h1> {title}</h1>
+        <p>User Score: {Math.round(vote_average * 10)}%</p>
         <h2>Overview</h2>
         <p>{overview}</p>
         <h3>Genres</h3>
@@ -44,10 +51,10 @@ const backLinkHref = location?.state?.from ?? "/movies";
         
         <ul>
         <li>
-          <Link to={"cast"} state ={{from: location?.state?.from}}>Cast</Link>
+          <Link to="cast" state ={{from: location?.state?.from}}>Cast</Link>
         </li>
         <li>
-          <Link to={"reviews"} state ={{from: location?.state?.from}}>Reviews</Link>
+          <Link to="reviews" state ={{from: location?.state?.from}}>Reviews</Link>
         </li>
       </ul>
       <Suspense fallback={<div>Loading subpage...</div>}>

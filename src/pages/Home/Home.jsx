@@ -1,42 +1,29 @@
-//import { getMovies } from "API";
-
+import Notiflix from 'notiflix';
 import MoviesPopular from "components/MoviesPopular/MoviesPopular";
 import { useEffect, useState } from "react";
-
+import { getTrending } from "service/API";
 
 const Home = () => {
   
-  const [moviesPopular, setMoviesPopular] = useState([]);
+  const [trending, setTrending] = useState([]);
 
-  
-
-useEffect(() => {
-  getMovies().then(setMoviesPopular);
-}, []);
-//console.log('movies', movies);
-
-
+  useEffect(() => {
+    getTrending()
+      .then(({ data }) => setTrending(data.results))
+      .catch(error =>
+        Notiflix.Notify.warning(
+          'Sorry, something went wrong.... Please try again.'
+        )
+      );
+  }, []);
 
   return (
     <main>
-      {moviesPopular && <MoviesPopular items={moviesPopular.results} />}
-      <h1>Tranding today</h1>
-      
-      
-  
+      <h1>Trending today</h1>
+      {trending && <MoviesPopular trending={trending.results} />}
     </main>
   );
 };
   
-
-//Home.propTypes = {
- // items: PropTypes.arrayOf(
-  //  PropTypes.shape({
-   //   id: PropTypes.string.isRequired,
-     // name: PropTypes.string.isRequired,
-     
-  //  })
- // ),
-//};
 export default Home;
 

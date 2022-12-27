@@ -1,19 +1,35 @@
-import { getMovies } from "service/API";
+import { getMovieBySearch } from "service/API";
 import MoviesPopular from "components/MoviesPopular/MoviesPopular";
 import { SearchBox } from "components/SearchBox/SearchBox";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import Notiflix from "notiflix";
 
 const Movies = () => {
  
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get('query') ?? "";
+  const movieName = searchParams.get('query') ?? '';
  
 useEffect(() => {
-  if (!query) return;
-  getMovies().then(setMovies);
-}, []);
+  if (movieName === '') return;
+
+  getMovieBySearch(movieName)
+  .then(({ data }) => {
+    if (data.results.length === 0) {
+      Notiflix.Notify.info(
+        `There are no movies on your request "${movieName}".Please try again.`
+      );
+      setMovies([]);
+    }
+    setMovies(data.results);
+  })
+  .catch(error =>
+    Notiflix.Notify.warning(
+      'Sorry, something went wrong.... Please try again.'
+    )
+  );
+}, [movieName]);
 
 if (!movies) {
   return null;
@@ -28,7 +44,7 @@ if (!movies) {
     <main>
       <SearchBox  onSearch={handleSearch} />
       
-      {movies.results && <MoviesPopular items={movies.results} />}
+      {movies.results && <MoviesPopular trending={movies.results} />}
       
     </main>
   );

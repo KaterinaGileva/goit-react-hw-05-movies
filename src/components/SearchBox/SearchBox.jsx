@@ -2,8 +2,12 @@ import { useState } from 'react';
 import css from "./SearchBox.module.css";
 //const styles = { form: { marginBottom: 20 } };
 
-export const SearchBox = ({ onSearch }) => {
+export const SearchBox = ({ onSubmit }) => {
   const [query, setQuery] = useState('');
+
+  const handleChange = event => {
+    setQuery(event.currentTarget.value.toLowerCase());
+  };
 
   const handleSubmit = evt =>{
     
@@ -14,9 +18,8 @@ export const SearchBox = ({ onSearch }) => {
         return;
       }
 
-      onSearch(evt.currentTarget.elements.query.value);
-      evt.currentTarget.reset();
-      setQuery('');
+      onSubmit(query);
+    setQuery('');
     }
 
     return (
@@ -26,8 +29,13 @@ export const SearchBox = ({ onSearch }) => {
         </button>
         <input
             className={css.input}
-            type="text"
-            name='query'
+            value={query}
+          onChange={handleChange}
+          
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search movies"
           />
       </form> 
     );

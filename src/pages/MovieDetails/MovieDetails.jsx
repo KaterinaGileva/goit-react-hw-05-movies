@@ -6,26 +6,29 @@ import { useState, useEffect } from 'react';
 import { Link, Outlet} from "react-router-dom";
 import Notiflix from "notiflix";
 import { BackLink } from "components/BackLink/BackLink";
+import NoImage from 'D:/GO IT/goit-react-hw-05-movies/src/noImag.png';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
-  const [movie, setMovie] = useState(null);
+  const [movie, setMovie] = useState([]);
   const location = useLocation();
  
+  const backLinkHref = location?.state?.from ?? "/";
+
 useEffect(() => {
   getMovieById(movieId)
   .then(({ data }) => setMovie(data))
-  .catch(error =>
+  .catch((error) =>
     Notiflix.Notify.warning(
       'Sorry, something went wrong.... Please try again.'
     )
   );
 }, [movieId]);
 
-if (!movie) {
-  return null;
-}
-const backLinkHref = location?.state?.from ?? "/movies";
+//if (!movie) {
+//  return null;
+//}
+
 const { poster_path, title, genres, vote_average, overview } = movie;
 
   return (
@@ -33,7 +36,11 @@ const { poster_path, title, genres, vote_average, overview } = movie;
       <BackLink to={backLinkHref}>Go back</BackLink>
       <div>
       {<img 
-           src={`https://image.tmdb.org/t/p/original/${poster_path}`} 
+           src={
+            poster_path
+              ? `https://image.tmdb.org/t/p/w500/${poster_path}`
+              : NoImage
+          }
            alt="{title}" 
            width={'300px'} />}
 
@@ -41,10 +48,15 @@ const { poster_path, title, genres, vote_average, overview } = movie;
         <p>User Score: {Math.round(vote_average * 10)}%</p>
         <h2>Overview</h2>
         <p>{overview}</p>
+        {genres && (
+          <>
         <h3>Genres</h3>
         <ul>
-        {genres.map(({id, name}) => <li key={id}>{name}</li>)}
+        {genres.map(({id, name}) => 
+        <li key={id}>{name}</li>)}
         </ul>
+        </>
+        )}
       </div>
       
         <h3>Additional information</h3>

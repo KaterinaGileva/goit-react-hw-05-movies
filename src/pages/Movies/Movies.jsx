@@ -42,7 +42,7 @@ if (!movies) {
 
   return (
     <main>
-      <SearchBox  onSearch={handleSearch} />
+      <SearchBox  onSubmit={handleSearch} />
       
       <MoviesPopular trending={movies} />
       

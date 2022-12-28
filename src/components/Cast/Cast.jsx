@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchMoviesCredits } from '../API.js';
+import { getCast } from 'service/API';
 
 const Cast = () => {
   const params = useParams();
   const movieId = parseInt(params.movieId);
   const [cast, setCast] = useState([]);
 
-  useEffect(() =>{
-    fetchMoviesCast(movieId).then(setCast)
+  useEffect(() => {
+    getCast(movieId).then(setCast)
   }, [movieId]);
   
   if (!cast) {

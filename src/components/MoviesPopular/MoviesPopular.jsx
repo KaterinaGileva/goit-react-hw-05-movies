@@ -1,20 +1,21 @@
 import { Link, useLocation } from "react-router-dom";
 
-export const MoviesPopular = ({items}) => {
+export const MoviesPopular = ({ trending }) => {
     const location = useLocation();
-  
+    
       return (
-        
-          <ul>
-            {items.map(({id, title }) =>
+          <div>
+          {trending.map(({ id, title }) => (
+          
           <li key={id}>
          <Link to={`/movies/${id}`} state={{from: location}}>
-            {title}</Link>
+            {title}
+            </Link>
           </li>
-          )}
-          </ul> 
-        
-      );
-    };
-  
-    export default MoviesPopular;
+          
+    ))} 
+    </div>
+
+      );   
+}
+export default MoviesPopular;   

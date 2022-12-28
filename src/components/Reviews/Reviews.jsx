@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { getReviews } from "service/API";
 
-export const Reviews = () => {
-  const { movieId } = useParams();
-  const { reviews, setReviews } = useState(null);
-  console.log(movieId);
-
-useEffect(() => {
-    moviesApi.fetchMovies(`https://api.themoviedb.org/3/movie/${movieId}/reviews?)`)
-    .then(setReviews)
-
+const Reviews = () => {
+  const params = useParams();
+  const movieId = parseInt(params.movieId);
+  const [reviews, setReviews] = useState([]);
+  
+  useEffect(() => {
+    getReviews(movieId).then(setReviews)
   }, [movieId]);
 
 if (!reviews) {
@@ -19,7 +18,7 @@ if (!reviews) {
     return (
       <div>
         <ul>
-          {reviews.result.map(({id, author, content }) =>
+          {reviews.reviews.map(({id, author, content }) =>
         <li key={id}>
         <h1>{author}</h1>
         <p>{content}</p>

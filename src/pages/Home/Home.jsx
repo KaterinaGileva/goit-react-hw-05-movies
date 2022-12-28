@@ -3,7 +3,7 @@ import MoviesPopular from "components/MoviesPopular/MoviesPopular";
 import { useEffect, useState } from "react";
 import { getTrending } from "service/API";
 
-const Home = () => {
+export default function Home() {
   
   const [trending, setTrending] = useState([]);
 
@@ -20,10 +20,10 @@ const Home = () => {
   return (
     <main>
       <h1>Trending today</h1>
-      {trending && <MoviesPopular trending={trending.results} />}
+      <MoviesPopular trending={trending} />
     </main>
   );
 };
   
-export default Home;
+
 

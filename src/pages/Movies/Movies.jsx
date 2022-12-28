@@ -44,7 +44,7 @@ if (!movies) {
     <main>
       <SearchBox  onSearch={handleSearch} />
       
-      {movies.results && <MoviesPopular trending={movies.results} />}
+      <MoviesPopular trending={movies} />
       
     </main>
   );

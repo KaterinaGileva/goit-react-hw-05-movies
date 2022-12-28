@@ -1,22 +1,22 @@
-
+import { useState } from 'react';
 import css from "./SearchBox.module.css";
-
-
 //const styles = { form: { marginBottom: 20 } };
 
 export const SearchBox = ({ onSearch }) => {
+  const [query, setQuery] = useState('');
 
   const handleSubmit = evt =>{
     
       evt.preventDefault();
 
-      if (search.trim() === '') {
+      if (query.trim() === '') {
         alert('Введите корректное имя');
         return;
       }
 
       onSearch(evt.currentTarget.elements.query.value);
-      evt.currentTarget.reset()
+      evt.currentTarget.reset();
+      setQuery('');
     }
 
     return (

@@ -13,7 +13,7 @@ const MovieDetails = () => {
   const location = useLocation();
  
 useEffect(() => {
-  getMovieById(Number(movieId))
+  getMovieById(movieId)
   .then(({ data }) => setMovie(data))
   .catch(error =>
     Notiflix.Notify.warning(

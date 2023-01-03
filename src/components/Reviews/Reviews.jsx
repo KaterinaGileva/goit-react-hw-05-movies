@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { getReviews } from "service/API";
 import Notiflix from "notiflix";
 import { ReviewsImg, ReviewsLi, ReviewsText, ReviewsUl, Title3 } from "./Rewiews.styled";
-import NoImage from 'D:/GO IT/goit-react-hw-05-movies/src/noImag.png';
+import NoImage from 'images/noImag.png';
 
 export default function Reviews() {
   const { id } = useParams();

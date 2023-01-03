@@ -1,6 +1,6 @@
 import { MovieImg, MovieLi, MovieLink, MovieText, MovieUl } from "components/MoviesPopular/Movies.styled";
 import { useLocation } from "react-router-dom";
-import NoImage from 'D:/GO IT/goit-react-hw-05-movies/src/noImag.png';
+import NoImage from 'images/noImag.png';
 
 export default function MoviesPopular ({ trending }) {
     const location = useLocation();

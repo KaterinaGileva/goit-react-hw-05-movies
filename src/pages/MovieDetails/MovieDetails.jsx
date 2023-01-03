@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Outlet} from "react-router-dom";
 import Notiflix from "notiflix";
 import  BackLink  from "components/BackLink/BackLink";
-import NoImage from 'D:/GO IT/goit-react-hw-05-movies/src/noImag.png';
+import NoImage from 'images/noImag.png';
 //import { DetailImg, DetailInfo, DetailMain, DetailText, MovieAbout, MovieInfo, Title2, Title3 } from "./MovieDetails.styled";
 import { MovieLink } from "components/MoviesPopular/Movies.styled";
 import { DetailImg, DetailInfo, DetailMain, DetailText, MovieAbout, MovieInfo, Title2, Title3 } from "./MovieDetails.styled";

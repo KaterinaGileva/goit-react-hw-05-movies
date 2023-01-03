@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCast } from 'service/API';
 import Notiflix from "notiflix";
-import NoImage from 'D:/GO IT/goit-react-hw-05-movies/src/noImag.png';
+import NoImage from 'images/noImag.png';
 import { CastImg, CastLi, CastText, CastUl } from './Cast.styled';
 
 

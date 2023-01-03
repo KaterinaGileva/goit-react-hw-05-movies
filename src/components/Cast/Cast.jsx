@@ -4,50 +4,49 @@ import { useParams } from 'react-router-dom';
 import { getCast } from 'service/API';
 import Notiflix from "notiflix";
 import NoImage from 'D:/GO IT/goit-react-hw-05-movies/src/noImag.png';
+import { CastImg, CastLi, CastText, CastUl } from './Cast.styled';
 
-const Cast = () => {
-  const { movieId } = useParams();
+
+export default function Cast() {
+  const { id } = useParams();
   
   const [cast, setCast] = useState([]);
 
   useEffect(() => {
-    getCast(movieId)
+    getCast(id)
       .then(({ data }) => setCast(data.cast))
       .catch(error =>
         Notiflix.Notify.warning(
           'Sorry, something went wrong.... Please try again.'
         )
       );
-  }, [movieId]);
+  }, [id]);
 
   //if (!cast) {
   //  return null;
  // }
 
     return (
-      <div>
-         <ul>
-          {cast.map
-          (({ id, name, character, profile_path}) => 
-               
-               <li key={id}>
-                <img
-                 src={
-                  profile_path
-                    ? `https://image.tmdb.org/t/p/w500/${profile_path}`
-                    : NoImage
-                }
-                width='100'
-                alt={name}
-                />
-              <p>{name}</p>  
-              <p>Character:{character}</p>
-                 
-                </li>       
-        )} 
-          </ul>
-            </div>      
+      <>
+        <CastUl>
+        {cast.map(({ id, profile_path, name, character }) => (
+          <CastLi key={id}>
+            <CastImg
+              src={
+                profile_path
+                  ? `https://image.tmdb.org/t/p/w500/${profile_path}`
+                  : NoImage
+              }
+              alt={name}
+              width={'300px'}
+            />
+            <CastText>{name}</CastText>
+            <CastText>{character}</CastText>
+          </CastLi>
+        ))}
+      </CastUl>
+            </>      
     )     
 };
   
-  export default Cast;
+  

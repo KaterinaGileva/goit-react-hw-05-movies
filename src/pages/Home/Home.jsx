@@ -2,6 +2,7 @@ import Notiflix from 'notiflix';
 import MoviesPopular from "components/MoviesPopular/MoviesPopular";
 import { useEffect, useState } from "react";
 import { getTrending } from "service/API";
+import { Title1 } from 'components/MoviesPopular/Movies.styled.js';
 
 export default function Home() {
   
@@ -19,7 +20,7 @@ export default function Home() {
 
   return (
     <main>
-      <h1>Trending today</h1>
+      <Title1>Trending today</Title1>
       <MoviesPopular trending={trending} />
     </main>
   );

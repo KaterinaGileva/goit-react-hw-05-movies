@@ -2,81 +2,89 @@ import { useParams, useLocation } from "react-router-dom";
 import { getMovieById } from 'service/API';
 import { Suspense } from "react";
 import { useState, useEffect } from 'react';
-//import css from './MovieDetails.module.css';
-import { Link, Outlet} from "react-router-dom";
+import { Outlet} from "react-router-dom";
 import Notiflix from "notiflix";
-import { BackLink } from "components/BackLink/BackLink";
+import  BackLink  from "components/BackLink/BackLink";
 import NoImage from 'D:/GO IT/goit-react-hw-05-movies/src/noImag.png';
+//import { DetailImg, DetailInfo, DetailMain, DetailText, MovieAbout, MovieInfo, Title2, Title3 } from "./MovieDetails.styled";
+import { MovieLink } from "components/MoviesPopular/Movies.styled";
+import { DetailImg, DetailInfo, DetailMain, DetailText, MovieAbout, MovieInfo, Title2, Title3 } from "./MovieDetails.styled";
 
-const MovieDetails = () => {
-  const { movieId } = useParams();
+export default function MovieDetails() {
+  const { id } = useParams();
   const [movie, setMovie] = useState([]);
   const location = useLocation();
  
-  const backLinkHref = location?.state?.from ?? "/";
+  const backLinkHref = location.state?.from ?? '/';
 
 useEffect(() => {
-  getMovieById(movieId)
-  .then(({ data }) => setMovie(data))
-  .catch((error) =>
+  getMovieById(id)
+      .then(({ data }) => setMovie(data))
+      .catch(error =>
     Notiflix.Notify.warning(
       'Sorry, something went wrong.... Please try again.'
     )
   );
-}, [movieId]);
-
-//if (!movie) {
-//  return null;
-//}
+}, [id]);
 
 const { poster_path, title, genres, vote_average, overview } = movie;
 
   return (
-    <main>
+    <DetailMain>
       <BackLink to={backLinkHref}>Go back</BackLink>
-      <div>
-      {<img 
-           src={
+      <MovieAbout>
+        <DetailImg
+          src={
             poster_path
               ? `https://image.tmdb.org/t/p/w500/${poster_path}`
               : NoImage
           }
-           alt="{title}" 
-           width={'300px'} />}
+          alt={title}
+          width={'300px'}
+        />
+        <MovieInfo>
+          <Title2> {title} </Title2>
+          <DetailText>User Score: {Math.round(vote_average * 10)}%</DetailText>
+          <Title3>Owerview</Title3>
+          <DetailText>{overview}</DetailText>
+          {genres && (
+            <>
+              <Title3>Genres</Title3>
 
-        <h1> {title}</h1>
-        <p>User Score: {Math.round(vote_average * 10)}%</p>
-        <h2>Overview</h2>
-        <p>{overview}</p>
-        {genres && (
-          <>
-        <h3>Genres</h3>
+              <ul>
+                {genres.map(({ id, name }) => (
+                  <li key={id}>
+                    <DetailText>{name}</DetailText>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </MovieInfo>
+      </MovieAbout>
+
+      <DetailInfo>
+        <Title3>Additional information</Title3>
         <ul>
-        {genres.map(({id, name}) => 
-        <li key={id}>{name}</li>)}
+          <li>
+            <MovieLink to="cast" state={{ from: location.state?.from }}>
+              Cast
+            </MovieLink>
+          </li>
+          <li>
+            <MovieLink to="reviews" state={{ from: location.state?.from }}>
+              Reviews
+            </MovieLink>
+          </li>
         </ul>
-        </>
-        )}
-      </div>
-      
-        <h3>Additional information</h3>
-        
-        <ul>
-        <li>
-          <Link to="cast" state ={{from: location?.state?.from}}>Cast</Link>
-        </li>
-        <li>
-          <Link to="reviews" state ={{from: location?.state?.from}}>Reviews</Link>
-        </li>
-      </ul>
       <Suspense fallback={<div>Loading subpage...</div>}>
         <Outlet />
       </Suspense>
-    </main>
+      </DetailInfo>
+    </DetailMain>
   );
 };
 
-export default MovieDetails;
 
 
       

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import css from "./SearchBox.module.css";
-//const styles = { form: { marginBottom: 20 } };
+import { SearchButton, SearchForm, SearchInput } from './SearchBox.styled';
+import { BiSearch } from 'react-icons/bi';
 
-export const SearchBox = ({ onSubmit }) => {
+export default function Search({ onSubmit }) {
   const [query, setQuery] = useState('');
 
   const handleChange = event => {
@@ -23,21 +23,29 @@ export const SearchBox = ({ onSubmit }) => {
     }
 
     return (
-      <form onSubmit={handleSubmit}>
-        <button type="submit"
-                className={css.button}> Search
-        </button>
-        <input
-            className={css.input}
-            value={query}
+      <>
+      <SearchForm onSubmit={handleSubmit}>
+        <SearchButton type="submit">
+          <BiSearch
+            style={{
+              width: 40,
+              height: 40,
+              
+            }}
+          />
+        </SearchButton>
+
+        <SearchInput
+          value={query}
           onChange={handleChange}
-          
+          className="SearchForm-input"
           type="text"
           autoComplete="off"
           autoFocus
           placeholder="Search movies"
-          />
-      </form> 
+        />
+      </SearchForm>
+    </>
     );
   };
   

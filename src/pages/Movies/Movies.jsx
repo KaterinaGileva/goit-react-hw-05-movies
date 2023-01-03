@@ -1,11 +1,11 @@
 import { getMovieBySearch } from "service/API";
 import MoviesPopular from "components/MoviesPopular/MoviesPopular";
-import { SearchBox } from "components/SearchBox/SearchBox";
+import  SearchBox  from "components/SearchBox/SearchBox";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Notiflix from "notiflix";
 
-const Movies = () => {
+export default function Movies() {
  
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -31,23 +31,16 @@ useEffect(() => {
   );
 }, [movieName]);
 
-if (!movies) {
-  return null;
-}
-
-  const handleSearch = (name) => {
-    const nextParams = name !== "" ? { query: name  } : {};
-   setSearchParams(nextParams);
- };
+  const handleSearch = (query) => {
+    
+    setSearchParams(`query=${query}`);
+  };
 
   return (
     <main>
       <SearchBox  onSubmit={handleSearch} />
-      
       <MoviesPopular trending={movies} />
-      
     </main>
   );
 };
 
-export default Movies;

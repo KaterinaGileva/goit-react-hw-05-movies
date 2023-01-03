@@ -6,9 +6,9 @@ import { Outlet} from "react-router-dom";
 import Notiflix from "notiflix";
 import  BackLink  from "components/BackLink/BackLink";
 import NoImage from 'images/noImag.png';
-//import { DetailImg, DetailInfo, DetailMain, DetailText, MovieAbout, MovieInfo, Title2, Title3 } from "./MovieDetails.styled";
-import { MovieLink } from "components/MoviesPopular/Movies.styled";
-import { DetailImg, DetailInfo, DetailMain, DetailText, MovieAbout, MovieInfo, Title2, Title3 } from "./MovieDetails.styled";
+
+
+import { DetailImg, DetailInfo, DetailMain, DetailText, MovieAbout, MovieInfo, MovieLink, Title2, Title3 } from "./MovieDetails.styled";
 
 export default function MovieDetails() {
   const { id } = useParams();

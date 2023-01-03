@@ -63,18 +63,17 @@ export const DetailText = styled.p`
 export const MovieLink = styled(NavLink)`
 cursor: pointer;
 font-family: inherit;
-font-size: 18px;
-line-height: 24px;
+font-size: 24px;
+
 font-style: normal;
-font-weight: 500;
-color: white;
+font-weight: 700;
+
+color: black;
 padding: 5px
 border: 2px solid blue;
 border-radius: 5px;
-:hover {
-  color: white;
-}
-  
-  
 
+:hover {
+  color: #08298A;
+}
 `;

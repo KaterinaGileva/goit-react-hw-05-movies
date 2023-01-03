@@ -52,8 +52,9 @@ export const Title1 = styled.h1`
      padding: 10px 5px 10px 50px;
     `
 export const MovieLink = styled(NavLink)`
-text-decoration: none;
-color: black;
+     text-decoration: none;
+     color: black;
+     
 :active {
   color: blue;
 }

@@ -19,10 +19,6 @@ export const ReviewsLi = styled.li`
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   background-color:white;
-
-  // :hover {
-  //   transform: scale(1.02);
-  //   }
 `;
 export const ReviewsImg = styled.img`
   display: block;
@@ -34,6 +30,7 @@ export const ReviewsImg = styled.img`
 `;
 
 export const ReviewsText = styled.p`
+  padding: 0 15px;
   text-decoration: none;
   cursor: pointer;
   font-family: inherit;
@@ -42,7 +39,7 @@ export const ReviewsText = styled.p`
   font-style: normal;
   font-weight: 500;
   color: #0B0B61;
-  padding: 0 15px;
+  
 `;
 
 export const Title3 = styled.h3`

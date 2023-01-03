@@ -5,9 +5,7 @@ import NoImage from 'images/noImag.png';
 export default function MoviesPopular ({ trending }) {
     const location = useLocation();
     const homeItem = trending.map(({ id, title, backdrop_path }) => {
-      return (
-          <>
-             {trending && (
+      return ( 
           <MovieLi key={id}>
             <MovieLink to={`/movies/${id}`} state={{ from: location }}>
               <MovieImg
@@ -21,8 +19,6 @@ export default function MoviesPopular ({ trending }) {
               <MovieText>{title}</MovieText>
             </MovieLink>
           </MovieLi>
-        )}
-    </>
       );   
 });
 return <MovieUl>{homeItem}</MovieUl>;

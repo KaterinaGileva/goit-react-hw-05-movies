@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getReviews } from "service/API";
 import Notiflix from "notiflix";
-import { ReviewsImg, ReviewsLi, ReviewsText, ReviewsUl, Title3 } from "./Rewiews.styled";
-import NoImage from 'images/noImag.png';
+import { ReviewsLi, ReviewsText, ReviewsUl, Title3 } from "./Rewiews.styled";
+//import NoImage from 'images/noImag.png';
 
 export default function Reviews() {
   const { id } = useParams();
@@ -19,24 +19,13 @@ export default function Reviews() {
       );
   }, [id]);
 
-  //if (!reviews) {
-   // return null;
-  //}
     return (
       <>
         {reviews.length > 0 ? (
         <ReviewsUl>
           {reviews.map(({ id, author, author_details, content }) => (
             <ReviewsLi key={id}>
-              <ReviewsImg
-                src={
-                  author_details.avatar_path
-                    ? `https://image.tmdb.org/t/p/w500/${author_details.avatar_path}`
-                    : NoImage
-                }
-                alt={author}
-                width={'100px'}
-              />
+             
               <Title3>{author} </Title3>
               <ReviewsText>{content} </ReviewsText>
             </ReviewsLi>
